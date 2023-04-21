@@ -11,7 +11,7 @@ from flask_ckeditor import CKEditor, CKEditorField
 import datetime as dt
 import os
 from dotenv import load_dotenv
-from forms import CreateRegisterForm, CommentForm, CreateLoginForm, CreatePostForm
+from forms import CreateRegisterForm, CommentForm, CreateLoginForm, CreatePostForm, CSRFProtect
 
 load_dotenv()
 Base = declarative_base()
@@ -22,6 +22,11 @@ ckeditor = CKEditor(app)
 bootstrap = Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+csrf = CSRFProtect(app)
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = True
+
 
 login_manager.login_view = "login"
 
